@@ -14,7 +14,7 @@ Grid布局 | 新技术，代码量少 |兼容性较差 |
 [flex弹性布局学习总结](https://www.cnblogs.com/nuannuan7362/p/5823381.html)
 
 #### CSS盒模型
-![image](https://img.mukewang.com/szimg/5a2632520001161419201080.jpg)
+![image](https://github.com/bihtyu/Blog/images/CSS盒模型.png)
 
 标准模型width不计算padding和border；
 IE模型width计算padding和border。
