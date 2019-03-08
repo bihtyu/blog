@@ -1,5 +1,5 @@
 # css
-## 三栏布局方案
+### 三栏布局方案
 
 方案 | 优点 | 缺点
 ---|--- | ---
@@ -33,28 +33,28 @@ dom.getBoundingClientRect().width/height/left/top // 常用于计算位置
 ```
 
 ### BFC（Block Fromatting Context）边距重叠解决方案
-一. BFC的基本概念：块级格式化上下文  
+1. BFC的基本概念：块级格式化上下文  
 
-二. BFC的原理：BFC的渲染规则    
-a. 在BFC这个元素的垂直方向的边距会发生重叠；  
-b. BFC的区域不会与浮动元素的box重叠；  
-c. BFC在页面上是一个独立的容器，外面的元素不会影响里面的元素，里面的元素也不会影响外面的元素；  
-d. 计算BFC高度时，浮动元素也会参与计算  
+2. BFC的原理：BFC的渲染规则    
+- 在BFC这个元素的垂直方向的边距会发生重叠；  
+- BFC的区域不会与浮动元素的box重叠；  
+- BFC在页面上是一个独立的容器，外面的元素不会影响里面的元素，里面的元素也不会影响外面的元素；  
+- 计算BFC高度时，浮动元素也会参与计算  
 
-三. 如何创建BFC  
-a. float不为none；  
-b. posiiton不为static或relative；  
-c. display为inline-block或者是table相关的；  
-d. overflow不为visible
+3. 如何创建BFC  
+- float不为none；  
+- posiiton不为static或relative；  
+- display为inline-block或者是table相关的；  
+- overflow不为visible
 
-四. BFC的使用场景  
-a. 解决垂直方向的边距问题  
-b. 清除浮动  
-c. 不与浮动元素重叠  
+4. BFC的使用场景  
+- 解决垂直方向的边距问题  
+- 清除浮动  
+- 不与浮动元素重叠  
 
-## DOM事件
-DOM事件模型：冒泡、捕获  
-DOM事件类：  
+### DOM事件
+1. DOM事件模型：冒泡、捕获  
+2. DOM事件类：  
 事件级别  
 DOM0 element.onclick=function(){} 来源于DOM0时代  
 DOM1设计时没有设计跟事件相关的标准  
