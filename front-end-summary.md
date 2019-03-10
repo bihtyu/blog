@@ -441,7 +441,7 @@ if (!Array.isArray) {
 }
 ```
 
-3. 介绍下重绘和回流（Repaint & Reflow），以及如何进行优化  
+3. 介绍下重绘和回流（Repaint & Reflow）
     - 重绘   
     由于节点的几何属性发生改变或者由于样式发生改变而不会影响布局的，称为重绘，例如outline, visibility, color、background-color等，重绘的代价是高昂的，因为浏览器必须验证DOM树上其他节点元素的可见性。
     - 回流  
