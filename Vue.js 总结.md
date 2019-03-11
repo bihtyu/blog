@@ -1,4 +1,4 @@
-## Axios跨域设置
+### Axios跨域设置
 1. main.js 添加配置
 ```
 Vue.prototype.$axios = Axios
@@ -22,6 +22,6 @@ proxyTable: {
 ```
 // axios.post('https://baobab.kaiyanapp.com/api/v2/feed')
       //   .then(this.getHomeListSucc)
-      axios.post('/api/v2/feed')
-        .then(this.getHomeListSucc)
+axios.post('/api/v2/feed')
+  .then(this.getHomeListSucc)
 ```
