@@ -1,4 +1,4 @@
-####  Axios跨域设置
+#  Axios跨域设置
 在访问某些api时经常会报下面的错误
 ![images](https://github.com/bihtyu/Blog/blob/master/images/axios%20error.png)
 example.com 访问 searve.com，由于不同源（域名、端口或协议不同）不能正常访问，使用以下配置可以解决
