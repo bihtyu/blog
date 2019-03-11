@@ -1,11 +1,8 @@
-### Axios跨域设置
-1. main.js 添加配置
-```
-Vue.prototype.$axios = Axios
-Axios.defaults.baseURL = '/api'
-Axios.defaults.headers.post['Content-Type'] = 'application/json'
-```
-2. 在index.js中设置proxyTable
+####  Axios跨域设置
+
+1. 在index.js中设置proxyTable
+
+![images](https://github.com/bihtyu/Blog/blob/master/images/axios%E8%B7%A8%E5%9F%9F_01.png)
 ```
 proxyTable: {
       '/api': {
@@ -16,6 +13,14 @@ proxyTable: {
         }
       }
     }
+```
+
+2. main.js 添加配置
+![images](https://github.com/bihtyu/Blog/blob/master/images/axios%E8%B7%A8%E5%9F%9F_02.png)
+```
+Vue.prototype.$axios = Axios
+Axios.defaults.baseURL = '/api'
+Axios.defaults.headers.post['Content-Type'] = 'application/json'
 ```
 
 3. 调用接口时省略api前缀
