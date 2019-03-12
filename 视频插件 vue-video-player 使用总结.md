@@ -58,7 +58,7 @@
 
     ![images](https://github.com/bihtyu/Blog/blob/master/images/vue-video-player__%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E9%94%99%E8%AF%AF.png)  
 
-    换成解析后的地址可以正常播放，如下：
+    换成解析后的地址可以正常播放，
     ```
     src: 'https://baobab.kaiyanapp.com/api/v1/playUrl?vid=152146&resourceType=video&editionType=high&source=aliyun' // 原地址
     src: 'http://uc.cdn.kaiyanapp.com/1552294594893_f1cf4fd2.mp4?t=1552380554&k=d03b6eec8ce20d17' // 解析后的地址
