@@ -4,8 +4,8 @@
     ```
     npm install vue-video-player
     ```
-2. 引入
-    在 main.js 中引入
+2. 引入  
+    main.js
     ```
     import VideoPlayer from 'vue-video-player'
     Vue.use(VideoPlayer)
