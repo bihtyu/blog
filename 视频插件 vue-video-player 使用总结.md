@@ -52,7 +52,7 @@
     ```
 
 
-4. Url 地址报错： ERROR:(CODE: 4 MEDIA_ERR_SRC_NOT_SUPPORTED)  
+4. Url 地址解析报错：VIDEOJS: ERROR: (CODE:4 MEDIA_ERR_SRC_NOT_SUPPORTED) 
 
     现在很多视频地址都是通过解析到 aliyun 或 ucloud 上，问题是直接使用未解析的地址会报下面的错  
 
