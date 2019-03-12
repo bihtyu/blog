@@ -56,7 +56,7 @@
 
     现在很多视频地址都是通过解析到 aliyun 或 ucloud 上，问题是直接使用未解析的地址会报下面的错  
 
-    ![images](https://github.com/bihtyu/Blog/blob/master/images/vue-video-player__%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E9%94%99%E8%AF%AF.png)
+    ![images](https://github.com/bihtyu/Blog/blob/master/images/vue-video-player__%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E9%94%99%E8%AF%AF.png)  
 
     换成解析后的地址可以正常播放，如下：
     ```
