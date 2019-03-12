@@ -52,7 +52,7 @@
     ```
 
 
-4. url地址问题   
+4. Url 地址报错： ERROR:(CODE: 4 MEDIA_ERR_SRC_NOT_SUPPORTED)  
 
     现在很多视频地址都是通过解析到 aliyun 或 ucloud 上，问题是直接使用未解析的地址会报下面的错  
 
@@ -64,7 +64,7 @@
     src: 'http://uc.cdn.kaiyanapp.com/1552294594893_f1cf4fd2.mp4?t=1552380554&k=d03b6eec8ce20d17' // 解析后的地址
     ```
 
-    考虑到不可能每个地址都手动转换，查阅 [vue-video-player 的 GitHub](https://github.com/surmon-china/vue-video-player) 和 [demo](https://surmon-china.github.io/vue-video-player/) 后得知，可以手动设置 sources 的 type 属性，使其自动解析:
+    考虑到不可能每个地址都手动转换，查阅 [vue-video-player 的 GitHub](https://github.com/surmon-china/vue-video-player) 和 [demo](https://surmon-china.github.io/vue-video-player/) 后得知，可以手动设置 sources 的 type 属性，使其自动解析：
     ```
     sources: [{
         type: 'video/mp4',
