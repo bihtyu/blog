@@ -53,20 +53,20 @@ playerOptions: {
 
 
 4. url地址问题  
-现在很多视频地址都是通过解析到 aliyun 或 UCCloud 上，问题是直接使用未解析的地址会报下面的错  
+    现在很多视频地址都是通过解析到 aliyun 或 UCCloud 上，问题是直接使用未解析的地址会报下面的错  
 
-![images](https://github.com/bihtyu/Blog/blob/master/images/vue-video-player__%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E9%94%99%E8%AF%AF.png)
+    ![images](https://github.com/bihtyu/Blog/blob/master/images/vue-video-player__%E8%A7%86%E9%A2%91%E6%92%AD%E6%94%BE%E9%94%99%E8%AF%AF.png)
 
-换成解析后的地址可以正常播放，如下：
-```
-src: 'https://baobab.kaiyanapp.com/api/v1/playUrl?vid=152146&resourceType=video&editionType=high&source=aliyun' // 原地址
-src: 'http://uc.cdn.kaiyanapp.com/1552294594893_f1cf4fd2.mp4?t=1552380554&k=d03b6eec8ce20d17' // 解析后的地址
-```
+    换成解析后的地址可以正常播放，如下：
+    ```
+    src: 'https://baobab.kaiyanapp.com/api/v1/playUrl?vid=152146&resourceType=video&editionType=high&source=aliyun' // 原地址
+    src: 'http://uc.cdn.kaiyanapp.com/1552294594893_f1cf4fd2.mp4?t=1552380554&k=d03b6eec8ce20d17' // 解析后的地址
+    ```
 
-考虑到不可能每个地址都手动转换，查阅 [vue-video-player 的 GitHub](https://github.com/surmon-china/vue-video-player) 和 [demo](https://surmon-china.github.io/vue-video-player/) 后得知，可以手动设置 sources 的 type 属性，使其自动解析:
-```
-sources: [{
-    type: 'video/mp4',
-    src: 'https://baobab.kaiyanapp.com/api/v1/playUrl?vid=152146&resourceType=video&editionType=high&source=aliyun' // url地址
-  }]
+    考虑到不可能每个地址都手动转换，查阅 [vue-video-player 的 GitHub](https://github.com/surmon-china/vue-video-player) 和 [demo](https://surmon-china.github.io/vue-video-player/) 后得知，可以手动设置 sources 的 type 属性，使其自动解析:
+    ```
+    sources: [{
+        type: 'video/mp4',
+        src: 'https://baobab.kaiyanapp.com/api/v1/playUrl?vid=152146&resourceType=video&editionType=high&source=aliyun' // url地址
+      }]
 ```
