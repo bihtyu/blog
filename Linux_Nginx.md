@@ -19,11 +19,11 @@ rz -y
 
 通过命令行上传 文件夹 到服务器
 ```
-// dist 为当前路径下的文件夹
-scp -r dist root@47.112.197.119:/www/test
+// dist/static 为当前路径下的文件夹
+scp -r dist/static root@47.112.197.119:/www/test
 ```
 
 通过命令行上传 文件 到服务器
 ```
-scp dist/index.html root@47.112.197.119:/www/test
+scp dist/index.html root@47.112.197.119:/www
 ```
