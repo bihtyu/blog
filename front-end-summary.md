@@ -43,7 +43,7 @@ dom.getBoundingClientRect().width/height/left/top // 常用于计算位置
 
 3. 如何创建BFC  
 - float不为none；  
-- posiiton不为static或relative；  
+- position不为static或relative；  
 - display为inline-block或者是table相关的；  
 - overflow不为visible
 
