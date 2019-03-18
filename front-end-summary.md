@@ -94,7 +94,7 @@ setTimeout(function () {
 
 #### 类型转换
 1. 数据类型  
-原始类型：booleanm, null, undefined, number, string, symbol(ES6新增)  
+原始类型：boolean, null, undefined, number, string, symbol(ES6新增)  
 对象（复合类型）：object  
 2. 转换  
 2.1 显式类型转换 Number()函数  
