@@ -74,9 +74,9 @@ dom.getBoundingClientRect().width/height/left/top // 常用于计算位置
 - event.stoplmmediatePropagation()：事件响应优先级（在当前响应函数中使用该方法可以阻止其他响应函数）；  
 - event.currentTarget：事件代理绑定的事件（父级）；  
 - event.target：当前被点击的元素；  
-> currentTarget始终是监听事件者，而target是事件的真正发出者（范围：currentTarget >= target）==  
+> currentTarget始终是监听事件者，而target是事件的真正发出者（范围：currentTarget >= target）  
 
-> 事件委托可以为新添加的DOM元素动态地添加事，当用事件委托的时候，不需要去遍历元素的子节点，只需要给父级元素添加事件就好了，其他的都是在js里面的执行，这样可以大大地减少dom操作，这就是事件委托的精髓所在。  
+> 事件委托可以为新添加的DOM元素动态地添加事件，委托的时候，不需要去遍历元素的子节点，只需要给父级元素添加事件就好了，其他的都是在js里面的执行，这样可以大大地减少dom操作，这就是事件委托的精髓所在。  
 
 4. 自定义事件
 ```
