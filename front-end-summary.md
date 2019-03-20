@@ -462,3 +462,12 @@ if (!Array.isArray) {
 - DOM树构建完之后，浏览器把DOM树中的一些不可视元素去掉，然后与CSSOM合成一棵render树  
 - 接着浏览器根据这棵render树，计算出各个节点(元素)在屏幕的位置。这个过程叫做layout，输出的是一棵layout树  
 - 最后浏览器根据这棵layout树，将页面渲染到屏幕上去  
+
+6. cookie 和 session 的区别
+- cookie 数据存放在用户的浏览器上，session 在服务器  
+- cookie 不是很安全，别人可以分析存放在本地的 cookie 进行 cookie 欺骗，考虑到安全应该用 cookie
+- session 会在服务器上保存一段时间，当访问增多，会比较占用服务器性能，考虑到减轻服务器的性能方面，应当使用 cookie
+- 单个 cookie 保存的数据不能超过 4KB  
+建议：登录等重要信息放 session，其它信息可以放 cookie
+
+
