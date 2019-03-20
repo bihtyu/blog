@@ -463,11 +463,21 @@ if (!Array.isArray) {
 - 接着浏览器根据这棵render树，计算出各个节点(元素)在屏幕的位置。这个过程叫做layout，输出的是一棵layout树  
 - 最后浏览器根据这棵layout树，将页面渲染到屏幕上去  
 
-6. cookie 和 session 的区别
-- cookie 数据存放在用户的浏览器上，session 在服务器  
-- cookie 不是很安全，别人可以分析存放在本地的 cookie 进行 cookie 欺骗，考虑到安全应该用 cookie
-- session 会在服务器上保存一段时间，当访问增多，会比较占用服务器性能，考虑到减轻服务器的性能方面，应当使用 cookie
-- 单个 cookie 保存的数据不能超过 4KB  
-建议：登录等重要信息放 session，其它信息可以放 cookie
+6. 本地存储  
+  6.1 cookie 和 session 的区别
+    - cookie 数据存放在用户的浏览器上，session 在服务器  
+    - cookie 不是很安全，别人可以分析存放在本地的 cookie 进行 cookie 欺骗，考虑到安全应该用 cookie
+    - session 会在服务器上保存一段时间，当访问增多，会比较占用服务器性能，考虑到减轻服务器的性能方面，应当使用 cookie
+    - 单个 cookie 保存的数据不能超过 4KB  
+    建议：登录等重要信息放 session，其它信息可以放 cookie  
+    
+  6.2 sessionStorage 和 localStorage  
+    前者严格用于一个浏览器会话中存储数据，因为数据在浏览器关闭后会立即删除；后者则用于跨会话持久化地存储数据。  
 
+7. HTML attribute 和 DOM property 的区别
+- attribute 是 HTML 标签上的特性，它的值只能够是字符串
+- property 是 DOM 中的属性，是 JavaScript 里的对象
+- 非自定义attribute，如id、class、titile等，都会有对应的property映射
+- 非自定义的property或attribute的变化多数是联动的
+- 带有默认值的attribute不随property变化而变化
 
