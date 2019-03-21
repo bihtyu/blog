@@ -300,7 +300,7 @@ alert('请求已发送，请等待响应...');
 - Hash
 - postMessage
 - WebSocket(WebSocket是一种通信协议，使用ws://（非加密）和wss://（加密）作为协议前缀。该协议不实行同源政策，只要服务器支持，就可以通过它进行跨源通信。)
-- CORS(新出的通信标准，可以理解为支持跨域请求的Ajax)  
+- CORS：新出的通信标准，可以理解为支持跨域请求的Ajax，实现 CORS 通信的关键是服务器。只要服务器实现了 CORS 接口，就可以跨源通信  
 `CORS与JSONP的使用目的相同，但是比JSONP更强大`    
 `JSONP只支持GET请求，CORS支持所有类型的HTTP请求。JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据`
 
@@ -477,7 +477,7 @@ if (!Array.isArray) {
 7. HTML attribute 和 DOM property 的区别
 - attribute 是 HTML 标签上的特性，它的值只能够是字符串
 - property 是 DOM 中的属性，是 JavaScript 里的对象
-- 非自定义attribute，如id、class、titile等，都会有对应的property映射
-- 非自定义的property或attribute的变化多数是联动的
-- 带有默认值的attribute不随property变化而变化
+- 非自定义 attribute，如 id、class、title 等，都会有对应的 property 映射
+- 非自定义的 property 或 attribute 的变化多数是联动的
+- 带有默认值的 attribute 不随 property 变化而变化
 
