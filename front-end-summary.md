@@ -463,13 +463,14 @@ if (!Array.isArray) {
 
 6. 本地存储  
     6.1 cookie 和 session 的区别
-    - cookie 数据存放在用户的浏览器上，session 在服务器  
-    - cookie 不是很安全，别人可以分析存放在本地的 cookie 进行 cookie 欺骗，考虑到安全应该用 cookie
-    - session 会在服务器上保存一段时间，当访问增多，会比较占用服务器性能，考虑到减轻服务器的性能方面，应当使用 cookie
-    - 单个 cookie 保存的数据不能超过 4KB  
-    建议：登录等重要信息放 session，其它信息可以放 cookie  
+- cookie 数据存放在用户的浏览器上，session 在服务器  
+- cookie 不是很安全，别人可以分析存放在本地的 cookie 进行 cookie 欺骗，考虑到安全应该用 cookie
+- session 会在服务器上保存一段时间，当访问增多，会比较占用服务器性能，考虑到减轻服务器的性能方面，应当使用 cookie
+- 单个 cookie 保存的数据不能超过 4KB  
+- 建议：登录等重要信息放 session，其它信息可以放 cookie  
+    
     6.2 sessionStorage 和 localStorage  
-    - 前者严格用于一个浏览器会话中存储数据，因为数据在浏览器关闭后会立即删除；后者则用于跨会话持久化地存储数据。  
+- 前者严格用于一个浏览器会话中存储数据，因为数据在浏览器关闭后会立即删除；后者则用于跨会话持久化地存储数据。  
 
 7. HTML attribute 和 DOM property 的区别
 - attribute 是 HTML 标签上的特性，它的值只能够是字符串
