@@ -51,6 +51,8 @@ dom.getBoundingClientRect().width/height/left/top // 常用于计算位置
 - 解决垂直方向的边距问题  
 - 清除浮动  
 - 不与浮动元素重叠  
+参考文档
+[块格式化上下文--MDN](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context)
 
 # JavaScript
 
@@ -465,7 +467,6 @@ if (!Array.isArray) {
     - session 会在服务器上保存一段时间，当访问增多，会比较占用服务器性能，考虑到减轻服务器的性能方面，应当使用 cookie
     - 单个 cookie 保存的数据不能超过 4KB  
     建议：登录等重要信息放 session，其它信息可以放 cookie  
-    
   6.2 sessionStorage 和 localStorage  
     前者严格用于一个浏览器会话中存储数据，因为数据在浏览器关闭后会立即删除；后者则用于跨会话持久化地存储数据。  
 
