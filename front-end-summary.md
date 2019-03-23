@@ -173,11 +173,6 @@ setTimeout(function () {
     
     1 + {a:1} -> 1[object Object]
     ```
-    
-    2.6 typeof、{}.toString、instanceof 的区别
-    - typeof适合基本类型及function检测，遇到null失效（输出为object）
-    - 通过{}.toString（如：Object.prototype. .toString()）拿到，适合内置对象和基元类型，遇到 null 和 undefined 失效（IE678 等返回 [object Object]）
-    - instanceof 适合自定义对象，也可以用来检测原生对象，在不同iframe和window间检测时失效
 
 #### HTTP协议类
 1. HTTP协议的主要特点：
