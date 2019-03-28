@@ -27,3 +27,15 @@ scp -r dist/static root@47.112.197.119:/www/test
 ```
 scp dist/index.html root@47.112.197.119:/www
 ```
+
+#### hash -> history 引起的页面 404
+在 nginx.conf 中添加以下配置：
+```
+location /{
+    root   /data/nginx/html;
+    index  index.html index.htm;
+    if (!-e $request_filename) {
+        rewrite ^/(.*) /index.html last;
+        break;
+    }
+```
