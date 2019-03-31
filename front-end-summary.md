@@ -32,8 +32,8 @@ window.getComputedStyle(dom).width // 浏览器渲染后的取值，兼容性更
 dom.getBoundingClientRect().width/height/left/top // 常用于计算位置
 ```
 
-#### BFC（Block Fromatting Context）边距重叠解决方案
-1. BFC的基本概念：块级格式化上下文  
+#### BFC（Block Fromatting Context）
+1. BFC的基本概念：块级格式化上下文（BFC 可以简单的理解为某个元素的一个 CSS 属性，只不过这个属性不能被开发者显式的修改，拥有这个属性的元素对内部元素和外部元素会表现出一些特性，这就是BFC。）  
 
 2. BFC的原理：BFC的渲染规则    
 - 在BFC这个元素的垂直方向的边距会发生重叠；  
@@ -48,12 +48,14 @@ dom.getBoundingClientRect().width/height/left/top // 常用于计算位置
 - overflow不为visible
 
 4. BFC的使用场景  
-- 解决垂直方向的边距问题  
-- 清除浮动  
-- 不与浮动元素重叠  
+- 自适应两栏布局
+- 可以阻止元素被浮动元素覆盖
+- 可以包含浮动元素——清除内部浮动
+- 分属于不同的BFC时可以阻止margin重叠
 
 参考文档：  
-[块格式化上下文--MDN](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context)
+[块格式化上下文--MDN](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context)  
+[布局概念：关于CSS-BFC深入理解](https://juejin.im/post/5909db2fda2f60005d2093db)
 
 # JavaScript
 
@@ -337,6 +339,79 @@ person.name;  // still "Bosn Ma"
 delete person.name;  // false
 ```
 
+2. 继承
+``` // 借助构造函数实现继承
+    function Parent1(){
+        this.name = 'parent1'
+    }
+    function Child1(){
+        Parent1.call(this);   // 改变 this 指向
+        this.type = 'child1'
+    }
+    console.log(new Child1);
+    // 缺点：无法继承父类原型链上的属性和方法
+
+    // 借助原型链实现继承
+    function Parent2(){
+        this.name = 'parent2'
+    }
+    function Child2(){
+        this.type = 'child2'
+    }
+    Child2.prototype = new Parent2()
+    console.log(new Child2);
+    // 缺点：原型链上的原型对象是共用的，
+    // 一个实例改变其值，其它实列对应的属性也会改变
+
+    // 组合方式
+    function Parent3() {
+        this.name = 'parent3'
+        this.play = [1, 2, 3]
+    }
+    function Child3(){
+        Parent3.call(this);
+        this.type = 'child3'
+    }
+    Child3.prototype = new Parent3();
+    var s3 = new Child3();
+    var s4 = new Child3();
+    s3.play.push(4);
+    console.log(s3.play, s4.play);
+    // 缺点：父级构造函数执行了多次
+
+    // 组合方式的优化1
+    function Parent4() {
+        this.name = 'parent4'
+        this.play = [1, 2, 3]
+    }
+    function Child4(){
+        Parent3.call(this);   // 父级构造函数只在这执行了一次
+        this.type = 'child4'
+    }
+    Child3.prototype = Parent4.prototype;  // !!!
+    var s5 = new Child4();
+    var s6 = new Child4();
+    s5.play.push(4);
+    console.log(s5.play, s6.play);
+    // 缺点：实列 s5 的 constructor 是 Parent()，不是 Child4()，
+    // 无法区分实列是由父类还是子类创造的
+
+    // 组合方式的优化2，比较完美
+    function Parent5() {
+        this.name = 'parent5'
+        this.play = [1, 2, 3]
+    }
+    function Child5(){
+        Parent3.call(this);
+        this.type = 'child5'
+    }
+    Child5.prototype = Object.create(Parent5.prototype);
+    Child5.prototype.constructor = Child5;
+    var s7 = new Child5();
+    console.log(s7 instanceof Child5, s7 instanceof Parent5);
+    console.log(s7.constructor);
+```
+
 #### 安全类
 1. cross-site request forgery 跨站请求伪造  
     攻击原理：   
@@ -463,14 +538,14 @@ if (!Array.isArray) {
 
 6. 本地存储  
     6.1 cookie 和 session 的区别
-- cookie 数据存放在用户的浏览器上，session 在服务器  
-- cookie 不是很安全，别人可以分析存放在本地的 cookie 进行 cookie 欺骗，考虑到安全应该用 cookie
-- session 会在服务器上保存一段时间，当访问增多，会比较占用服务器性能，考虑到减轻服务器的性能方面，应当使用 cookie
-- 单个 cookie 保存的数据不能超过 4KB  
-- 建议：登录等重要信息放 session，其它信息可以放 cookie  
-    
+    - cookie 数据存放在用户的浏览器上，session 在服务器  
+    - cookie 不是很安全，别人可以分析存放在本地的 cookie 进行 cookie 欺骗，考虑到安全应该用 cookie
+    - session 会在服务器上保存一段时间，当访问增多，会比较占用服务器性能，考虑到减轻服务器的性能方面，应当使用 cookie
+    - 单个 cookie 保存的数据不能超过 4KB  
+    - 建议：登录等重要信息放 session，其它信息可以放 cookie  
+        
     6.2 sessionStorage 和 localStorage  
-- 前者严格用于一个浏览器会话中存储数据，因为数据在浏览器关闭后会立即删除；后者则用于跨会话持久化地存储数据。  
+    - 前者严格用于一个浏览器会话中存储数据，因为数据在浏览器关闭后会立即删除；后者则用于跨会话持久化地存储数据。  
 
 7. HTML attribute 和 DOM property 的区别
 - attribute 是 HTML 标签上的特性，它的值只能够是字符串
@@ -478,4 +553,3 @@ if (!Array.isArray) {
 - 非自定义 attribute，如 id、class、title 等，都会有对应的 property 映射
 - 非自定义的 property 或 attribute 的变化多数是联动的
 - 带有默认值的 attribute 不随 property 变化而变化
-
