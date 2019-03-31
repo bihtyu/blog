@@ -340,7 +340,8 @@ delete person.name;  // false
 ```
 
 2. 继承
-``` // 借助构造函数实现继承
+``` 
+    // 借助构造函数实现继承
     function Parent1(){
         this.name = 'parent1'
     }
