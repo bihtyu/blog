@@ -389,7 +389,7 @@ delete person.name;  // false
         Parent3.call(this);   // 父级构造函数只在这执行了一次
         this.type = 'child4'
     }
-    Child3.prototype = Parent4.prototype;  // !!!
+    Child4.prototype = Parent4.prototype;  // !!!
     var s5 = new Child4();
     var s6 = new Child4();
     s5.play.push(4);
