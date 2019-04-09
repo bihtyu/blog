@@ -341,7 +341,7 @@ delete person.name;  // false
 
 2. 继承
 ``` 
-    // 借助构造函数实现继承
+    // 1.借助构造函数实现继承
     function Parent1(){
         this.name = 'parent1'
     }
@@ -352,7 +352,7 @@ delete person.name;  // false
     console.log(new Child1);
     // 缺点：无法继承父类原型链上的属性和方法
 
-    // 借助原型链实现继承
+    // 2.借助原型链实现继承
     function Parent2(){
         this.name = 'parent2'
     }
@@ -364,9 +364,9 @@ delete person.name;  // false
     // 缺点：原型链上的原型对象是共用的，
     // 一个实例改变其值，其它实列对应的属性也会改变
 
-    // 组合方式
+    // 3.组合方式
     function Parent3() {
-        this.name = 'parent3'
+        this.name = 'parent3';
         this.play = [1, 2, 3]
     }
     function Child3(){
@@ -380,13 +380,13 @@ delete person.name;  // false
     console.log(s3.play, s4.play);
     // 缺点：父级构造函数执行了多次
 
-    // 组合方式的优化1
+    // 4.组合方式的优化1
     function Parent4() {
         this.name = 'parent4'
         this.play = [1, 2, 3]
     }
     function Child4(){
-        Parent3.call(this);   // 父级构造函数只在这执行了一次
+        Parent4.call(this);   // 父级构造函数只在这执行了一次
         this.type = 'child4'
     }
     Child4.prototype = Parent4.prototype;  // !!!
@@ -397,13 +397,13 @@ delete person.name;  // false
     // 缺点：实列 s5 的 constructor 是 Parent()，不是 Child4()，
     // 无法区分实列是由父类还是子类创造的
 
-    // 组合方式的优化2，比较完美
+    // 5.组合方式的优化2，比较完美
     function Parent5() {
-        this.name = 'parent5'
+        this.name = 'parent5';
         this.play = [1, 2, 3]
     }
     function Child5(){
-        Parent3.call(this);
+        Parent5.call(this);
         this.type = 'child5'
     }
     Child5.prototype = Object.create(Parent5.prototype);
