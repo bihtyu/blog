@@ -5,7 +5,7 @@ npm cache clean --force  清除cache，然后 npm install
 参考链接： [Installing ERROR | Unexpected end of JSON input while parsing near ' ](https://github.com/npm/npm/issues/19072)
 
 #### 2. $forceUpdata 强制更新数据 (2019.06.13)
-在使用[element UI](https://element.eleme.cn/#/zh-CN/component/installation) Select 选择器时，v-model绑定的数据改变，并且操作select后，视图没有实时更新。也试过更新数据使用 vm.$set(obj, attr, value)，但没有达到预期效果。
+在使用[element UI](https://element.eleme.cn/#/zh-CN/component/installation) Select 选择器时，v-model绑定的数据改变，并且操作select后，视图没有实时更新。也试过更新数据使用 vm.$set(obj, attr, value)，但没有达到预期效果。  
 解决方法：添加 @visible-change="$forceUpdate()"
 ```
 <el-select
