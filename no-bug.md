@@ -18,7 +18,7 @@ npm cache clean --force  清除cache，然后 npm install
 
 #### 3. v-if 引起的 u.$scopedSlots.default is not a function (2019.06.13)
 使用 v-if 和 v-else 时，vue.js 为了提高性能，不会重复绘制已有的组件，从而导致报错，如下图：
-![image](https://github.com/bihtyu/Blog/blob/master/images/u.%24scopedSlots.default%20is%20not%20a%20function.png)
+![image](https://github.com/bihtyu/Blog/blob/master/images/u.%24scopedSlots.default%20is%20not%20a%20function.png)  
 解决方法：  
 1. 使用 v-show  
 2. 添加 key，强制重新渲染
