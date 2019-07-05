@@ -64,4 +64,4 @@ npm cache clean --force  清除cache，然后 npm install
   overflow: auto;
 }
 ```
-感谢 [wxhccc](https://github.com/wxhccc) 
+该 bug 感谢 [wxhccc](https://github.com/wxhccc) 提供思路
