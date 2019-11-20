@@ -1,5 +1,4 @@
 # 视频插件 vue-video-player 使用总结
-近日，在一个 vue 项目中需要使用视频播放插件，网上推荐 vue-video-player， 以下为使用过程以及遇到的坑
 1. 安装
     ```
     npm install vue-video-player
