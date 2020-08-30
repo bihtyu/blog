@@ -1,0 +1,53 @@
+<html>
+  <head></head>
+  <body>
+    <script>
+      var obj = { name: 'bihtyu'}
+      name = 'yuzhenhua'
+
+      function func(firstName, lastName) {
+        console.log(this)
+        console.log(`${firstName} ${this.name} ${lastName}`)
+      }
+
+      // apply 方法传入两个参数：一个是作为函数上下文的对象，另外一个是作为函数参数所组成的数组。
+      func.apply(this.obj, ['A', 'B']) // A bihtyu B
+
+      // call 方法第一个参数也是作为函数上下文的对象，但是后面传入的是一个参数列表，而不是单个数组。
+      func.call(obj, 'C', 'D');       // C bihtyu D
+
+      // -----
+
+      var Person1 = function() {
+        this.name = 'bihtyu'
+      }
+      
+      var Person2 = function () {
+        this.getname = function () {
+          console.log(this.name)
+        }
+        Person1.call(this)
+      }
+
+      var person = new Person2()
+      person.getname() // bihtyu
+
+      const uniqueBy = function(arr, fn) {
+        return arr.filter((element, index, array) => array.findIndex(row => {
+          console.log(`element: ${element}`)
+          console.log(fn.call(this, element))
+          console.log(`    row: ${row}`)
+          console.log(fn.call(this, row))
+          console.log('-----------')
+          return typeof (fn) === 'function' ? (fn.call(this, row) === fn.call(this, element)) : (row[fn] === element[fn])
+        }) === index)
+      }
+
+      const unique = (arr) => uniqueBy(arr, row => row)
+
+      console.log(unique(['a', 'b', 'c']))
+
+      // from https://github.com/lin-xin/blog/issues/7
+    </script>
+  </body>
+</html>

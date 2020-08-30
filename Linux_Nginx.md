@@ -11,10 +11,12 @@
 ```
 
 #### 上传文件到服务器
-通过 Xshell 6 和 lrzsz 上传文件到服务器
+通过 Xshell 6 和 lrzsz 上传文件到服务器的当前目录
 ```
 yum   -y  install  lrzsz
 rz -y
+
+rz (注：在 MobaXterm 下，rz -> Ctrl + 右键 -> 选择【Send file using Z-modem】 )
 ```
 
 通过命令行上传 文件夹 到服务器
