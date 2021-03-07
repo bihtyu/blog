@@ -20,6 +20,12 @@ for (var j = 0; j < 3; j++) {
   })(j)
 }
 
+for (var k = 0; k < 3; k++) {
+  (data[k] = function() {
+    console.log(arguments.callee.i)
+  }).i = i;
+}
+
 data2[0]() // 0
 data2[1]() // 1
 data2[2]() // 2
