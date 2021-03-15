@@ -65,3 +65,14 @@ npm cache clean --force  清除cache，然后 npm install
 }
 ```
 该 bug 感谢 [wxhccc](https://github.com/wxhccc) 提供思路
+
+####  5. 公共样式文件的 /deep/ 无效
+覆盖样式有以下几种方式：
+1. 在 .vue 的 style 里使用 /deep/，>>>，或 ::v-deep（需 scoped）；  
+2. 在 .vue 文件中直接覆盖（没有 scoped）（不建议，不然会些样式会在全局生效）；
+3. 在公共样式中使用 /deep/，在入口文件处全局引用；  
+4. 单独的 css 文件，在某些 .vue 文件中通过 import 引入（建议加 scoped）
+  
+[Chrome 63将删除::shadow 和 /deep/](https://developers.google.cn/web/updates/2017/10/remove-shadow-piercing?hl=zh-cn#%E5%A6%82%E6%9E%9C%E6%88%91%E7%9A%84%E7%BD%91%E9%A1%B5%E4%BD%BF%E7%94%A8%E4%BA%86shadow_and_deep%E6%88%91%E5%BA%94%E8%AF%A5%E8%A6%81%E6%80%8E%E6%A0%B7%E5%91%A2)，在 chrome 89 及以下的版本，上面几种方式都能生效；但 89 版本后，彻底移除了 shadow DOM V0，/deep/ 失效（第 3 种）  
+
+注：vue 子组件的样式有 scoped 属性时，/deep/ 仍有效。原因是此类的样式加了 hash 值来标记 class（89 版本后公共样式的 /deep/ 直接输出） 
