@@ -7,7 +7,7 @@ export default class {
     document.title = 'bar';
     container.innerHTML = template;
 
-    container.querySelector('.bar__gofoo').addEventListenner('click', () => {
+    container.querySelector('.bar__gofoo').addEventListener('click', () => {
       router.go('/foo');
     });
   }

@@ -7,7 +7,7 @@ export default class {
     document.title = 'foo'
     container.innerHTML = template
 
-    container.querySelector('.foo__gobar').addEventListenner('click', () => {
+    container.querySelector('.foo__gobar').addEventListener('click', () => {
       // 调用 router.go 方法加载 /bar 页面
       router.go('/bar')
     })

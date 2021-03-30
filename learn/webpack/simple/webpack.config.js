@@ -26,6 +26,7 @@ module.exports = {
 
   // 配置打包输出相关
   output: {
+    publicPath: '/assets/',
     // 打包输出目录
     path: resolve(__dirname, 'dist'),
 
@@ -87,7 +88,7 @@ module.exports = {
         上面 html-loader 会把 html 中 <img> 标签的图片解析出来，文件名匹配到这里的 test 的正则表达式，
         css-loader 引用的图片和字体同样会匹配到这里的 test 条件
         */
-        test: /\.(png|jpg|jpeg|gif|eot|ttf|woff2|svgz)(\?.+)?$/,
+        test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
 
         /*
         使用 url-loader, 它接受一个 limit 参数，单位为字节(byte)
@@ -161,6 +162,16 @@ if (dev) {
   module.exports.serve = {
     // 监听端口
     port: 8080,
+    host: '0.0.0.0',
+
+    dev: {
+      /*
+      指定 webpack-dev-middleware 的 publicpath
+      一般情况下与 output.publicPath 保持一致（除非 output.publicPath 使用的是相对路径）
+      https://github.com/webpack/webpack-dev-middleware#publicpath
+      */
+      publicPath: '/assets/'
+    },
 
     // add: 用来给服务器的 koa 实例注入 middleware 增加功能
     add: app => {
@@ -173,7 +184,9 @@ if (dev) {
       http://localhost:8080/index.html
       这个文件
       */
-      app.use(convert(history()));
+      app.use(convert(history({
+        index: '/assets/' // index.html 文件在 /assets/ 路径下
+      })));
     }
   };
 }
