@@ -1,10 +1,15 @@
 const { resolve } = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const pkgInfo = require('./package.json')
 const history = require('connect-history-api-fallback');
 const convert = require('koa-connect');
+const url = require('url');
+const internalIp = require('internal-ip');
 
 // 使用 WEBPACK_SERVE 环境变量检测当前是否在 webpack-server 启动的开发环境中
 const dev = Boolean(process.env.WEBPACK_SERVE);
+const config = require('./config/' + (process.env.npm_config_config || 'default'))
 
 module.exports = {
   /*
@@ -24,14 +29,32 @@ module.exports = {
   // 入口 js 文件
   entry: './src/index.js',
 
+  optimization: {
+    /*
+    上面提到 chunkFilename 指定了 chunk 打包输出的名字，那么文件名存在哪里了呢？
+    它就存在引用它的文件中。这意味着一个 chunk 文件名发生改变，会导致引用这个 chunk 文件也发生改变。
+
+    runtimeChunk 设置为 true, webpack 就会把 chunk 文件名全部存到一个单独的 chunk 中，
+    这样更新一个文件只会影响到它所在的 chunk 和 runtimeChunk，避免了引用这个 chunk 的文件也发生改变。
+    */
+    runtimeChunk: true,
+
+    splitChunks: {
+      /*
+      默认 entry 的 chunk 不会被拆分
+      因为我们使用了 html-webpack-plugin 来动态插入 <script> 标签，entry 被拆成多个 chunk 也能自动被插入到 html 中，
+      所以我们可以配置成 all, 把 entry chunk 也拆分了
+      */
+      chunks: 'all'
+    }
+  },
+
   // 配置打包输出相关
   output: {
-    publicPath: '/assets/',
-    // 打包输出目录
     path: resolve(__dirname, 'dist'),
-
-    // 入口 js 的打包输出文件名
-    filename: 'index.js'
+    filename: dev ? '[name].js' : '[chunkhash].js',
+    chunkFilename: '[chunkhash].js',
+    publicPath: config.publicPath
   },
 
   module: {
@@ -68,7 +91,15 @@ module.exports = {
         import htmlString from './template.html';
         template.html 的文件内容会被转成一个 js 字符串，合并到 js 文件里。
         */
-        use: 'html-loader'
+        use: [
+          {
+            loader: 'html-loader',
+            options: {
+              root: resolve(__dirname, 'src'),
+              attrs: ['img:src', 'link:href']
+            }
+          }
+        ]
       },
 
       {
@@ -79,7 +110,19 @@ module.exports = {
         css-loader 将 css 内容存为 js 字符串，并且会把 background, @font-face 等引用的图片，
         字体文件交给指定的 loader 打包，类似上面的 html-loader, 用什么 loader 同样在 loaders 对象中定义，等会下面就会看到。
         */
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader', 'postcss-loader']
+      },
+
+      {
+        test: /favicon\.png$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[hash].[ext]'
+            }
+          }
+        ]
       },
 
       {
@@ -89,6 +132,7 @@ module.exports = {
         css-loader 引用的图片和字体同样会匹配到这里的 test 条件
         */
         test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+        exclude: /favicon\.png$/,
 
         /*
         使用 url-loader, 它接受一个 limit 参数，单位为字节(byte)
@@ -123,6 +167,22 @@ module.exports = {
   */
 
   plugins: [
+    new webpack.DefinePlugin({
+      DEBUG: dev,
+      VERSION: JSON.stringify(pkgInfo.version),
+      CONFIG: JSON.stringify(config.runtimeConfig)
+    }),
+    
+    /*
+    使用文件路径的 hash 作为 moduleId。
+    虽然我们使用 [chunkhash] 作为 chunk 的输出名，但仍然不够。
+    因为 chunk 内部的每个 module 都有一个 id，webpack 默认使用递增的数字作为 moduleId。
+    如果引入了一个新文件或删掉一个文件，可能会导致其他文件的 moduleId 也发生改变，
+    那么受影响的 module 所在的 chunk 的 [chunkhash] 就会发生改变，导致缓存失效。
+    因此使用文件路径的 hash 作为 moduleId 来避免这个问题。
+    */
+    new webpack.HashedModuleIdsPlugin(),
+
     /*
     html-webpack-plugin 用来打包入口 html 文件
     entry 配置的入口是 js 文件，webpack 以 js 文件为入口，遇到 import, 用配置的 loader 加载引入文件
@@ -145,7 +205,17 @@ module.exports = {
       */
       chunksSortMode: 'none'
     })
-  ]
+  ],
+
+  resolve: {
+    alias: {
+      '~': resolve(__dirname, 'src')
+    }
+  },
+
+  performance: {
+    hints: dev ? false : 'warning'
+  }
 };
 
 /*
@@ -161,8 +231,14 @@ issue：https://github.com/webpack-contrib/webpack-serve/issues/19
 if (dev) {
   module.exports.serve = {
     // 监听端口
-    port: 8080,
     host: '0.0.0.0',
+    hot: {
+      host: {
+        client: internalIp.v4.sync(),
+        server: '0.0.0.0'
+      }
+    },
+    port: config.serve.port,
 
     dev: {
       /*
@@ -170,7 +246,7 @@ if (dev) {
       一般情况下与 output.publicPath 保持一致（除非 output.publicPath 使用的是相对路径）
       https://github.com/webpack/webpack-dev-middleware#publicpath
       */
-      publicPath: '/assets/'
+      publicPath: config.publicPath
     },
 
     // add: 用来给服务器的 koa 实例注入 middleware 增加功能
@@ -185,7 +261,9 @@ if (dev) {
       这个文件
       */
       app.use(convert(history({
-        index: '/assets/' // index.html 文件在 /assets/ 路径下
+        index: url.parse(config.publicPath).pathname, // index.html 文件在 /assets/ 路径下
+        disableDotRule: true,
+        htmlAcceptHeaders: ['text/html', 'application/xhtml+xml']
       })));
     }
   };

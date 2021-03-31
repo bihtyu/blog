@@ -1,4 +1,4 @@
-import router from '../../router'
+import router from '~/router'
 import template from './index.html'
 import './style.css'
 
@@ -9,7 +9,13 @@ export default class {
 
     container.querySelector('.foo__gobar').addEventListener('click', () => {
       // 调用 router.go 方法加载 /bar 页面
-      router.go('/bar')
+      router.go('/bar.do')
     })
+
+    container.querySelector('pre').textContent = `
+      DEBUG: ${DEBUG}
+      VERSION: ${VERSION}
+      CONFIG: ${JSON.stringify(CONFIG)}
+    `
   }
 }
