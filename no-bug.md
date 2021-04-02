@@ -69,7 +69,7 @@ npm cache clean --force  清除cache，然后 npm install
 ####  5. 公共样式文件的 /deep/ 无效
 覆盖样式有以下几种方式：
 1. 在 .vue 的 style 里使用 /deep/，>>>，或 ::v-deep（需 scoped）；  
-2. 在 .vue 文件中直接覆盖（没有 scoped）（不建议，不然会些样式会在全局生效）；
+2. 在 .vue 文件中直接覆盖（没有 scoped）（不建议，不然样式会在全局生效）；
 3. 在公共样式中使用 /deep/，在入口文件处全局引用；  
 4. 单独的 css 文件，在某些 .vue 文件中通过 import 引入（建议加 scoped）
   
