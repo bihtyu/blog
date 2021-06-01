@@ -20,7 +20,7 @@ scp dist/index.html root@47.112.197.119:/www
 ```
 #### 防火墙开启相关端口
 ```
-firewall-cmd --add-port=3000/tcp --permaent
+firewall-cmd --add-port=3000/tcp --permanent
 firewall-cmd --reload
 firewall-cmd --zone=public --list-all
 ```
