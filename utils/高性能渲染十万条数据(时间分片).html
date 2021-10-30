@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>高性能渲染十万条数据(时间分片)</title>
+</head>
+
+<body>
+  <a href="https://juejin.cn/post/6844903938894872589" target="_blank">「前端进阶」高性能渲染十万条数据(时间分片)</a>
+  <ul id="main"></ul>
+  <script>
+    let now = Date.now();
+    const TOTAL = 10000
+    let ul = document.getElementById('main')
+
+    // 1. 暴力输出
+    function renderByLoop() {
+      for (let i = 0; i < TOTAL; i++) {
+        let li = document.createElement('li')
+        li.innerText = ~~(Math.random() * TOTAL) // 取整
+        ul.appendChild(li)
+      }
+    }
+    
+    // 2. 定时器
+    function renderByTimer() {
+      let once = 2000
+      let page = TOTAL / once
+      let index = 0
+      function loop(currentTotal, currentIndex) {
+        if (currentTotal <= 0) return false
+        let pageCount = Math.min(currentTotal, once)
+        window.requestAnimationFrame(function() {
+          for (let i = 0; i < pageCount; i++) {
+            let li = document.createElement('li')
+            li.innerText = currentIndex + i + ': ' + ~~(Math.random() * TOTAL)
+            ul.appendChild(li)
+          }
+          loop(currentTotal - pageCount, currentIndex + pageCount)
+        })
+      }
+      loop(TOTAL, index)
+    }
+
+    // 2. 定时器 - 优化
+    function renderByTimer2() {
+      let once = 2000
+      let page = TOTAL / once
+      let index = 0
+      function loop(currentTotal, currentIndex) {
+        if (currentTotal <= 0) return false
+        let pageCount = Math.min(currentTotal, once)
+        window.requestAnimationFrame(function() {
+          let fragment = document.createDocumentFragment()
+          for (let i = 0; i < pageCount; i++) {
+            let li = document.createElement('li')
+            li.innerText = currentIndex + i + ': ' + ~~(Math.random() * TOTAL)
+            fragment.appendChild(li)
+          }
+          ul.appendChild(fragment)
+          loop(currentTotal - pageCount, currentIndex + pageCount)
+        })
+      }
+      loop(TOTAL, index)
+    }
+
+    // renderByLoop()
+    renderByTimer()
+
+    
+    console.log(`JS 运行时间：${Date.now() - now}`)
+    setTimeout(() => {
+      console.log(`总运行时间：${Date.now() - now}`)
+    })
+  </script>
+</body>
+</html>

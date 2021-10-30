@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+  <a href="/">home</a>
+  <a href="/about">about</a>
+  <a href="/404">404</a>
+
+
+  <!-- 渲染路由对应的组件 -->
+  <div id="routerView"></div>
+</body>
+<script>
+  let routerView = document.querySelector('#routerView')
+
+  let router = {
+    '/': 'homeComponent',
+    '/about': 'aboutComponent',
+    '/404': '404Component'
+  }
+
+  // 绑定事件
+  function listeners() {
+    let aDoms = document.getElementsByTagName('a')
+    Array.from(aDoms).forEach(el => el.addEventListener('click', function (e) {
+      e.preventDefault()
+      history.pushState(null, '', el.getAttribute('href'))
+      render()
+    })
+    )
+  }
+
+  // 渲染对应的路由组件
+  function render() {
+    let pathname = location.pathname;
+    routerView.innerHTML = router[pathname]
+  }
+
+  // 页面锚点发送变化
+  window.addEventListener('popstate', () => {
+    render()
+  })
+
+  // 页面加载
+  window.addEventListener('DOMContentLoaded', () => {
+    listeners()
+    // 渲染组件
+    render()
+  })
+</script>
+
+</html>

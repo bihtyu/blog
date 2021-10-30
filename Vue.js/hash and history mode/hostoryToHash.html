@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+  <a href="/">home</a>
+  <a href="/about">about</a>
+  <a href="/404">404</a>
+
+  <!-- 渲染路由对应的组件 -->
+  <div id="routerView"></div>
+  <script>
+    // light-server -s . --historyindex '/historyToHash.html' --port 3000
+    const routerView = document.querySelector('#routerView')
+    const router = {
+      '/': 'homeComponent',
+      '/about': 'aboutComponent',
+      '/404': '404Component'
+    }
+
+    function listeners() {
+      const aDoms = document.getElementsByTagName('a')
+      Array.from(aDoms).forEach(el => el.addEventListener('click', function(e) {
+        e.preventDefault()
+        history.pushState(null, '', `#${el.getAttribute('href')}`)
+        render()
+      }))
+    }
+
+    function render() {
+      const pathName = location.hash.substr(1)
+      console.log(pathName)
+      routerView.innerHTML = router[pathName]
+    }
+
+    window.addEventListener('popstate', render)
+
+    window.addEventListener('DOMContentLoaded', () => {
+      location.hash || (location.href = '#/')
+      listeners()
+      render()
+    })
+  </script>
+</body>
+</html>

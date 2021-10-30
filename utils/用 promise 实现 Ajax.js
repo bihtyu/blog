@@ -1,0 +1,27 @@
+const getJSON = function(url) {
+  const promise = new Promise((resolved, reject) => {
+    const handler = function() {
+      if (this.readyState !== 4) {
+        return
+      }
+      if (this.status === 200) {
+        resolved(this.response)
+      } else {
+        reject(new Error(this.statusText))
+      }
+    }
+    const client = new XMLHttpRequest()
+    client.open('GET', url)
+    client.onreadystatechange = handler
+    client.responseType = 'json'
+    client.setRequestHeader('Accept', 'application/json')
+    client.send()
+  })
+  return promise
+}
+
+getJSON('https://gx.creditft.net.cn/gxfin/gateway/finance-pay/webPay/imageCode').then(res => {
+  console.log(res)
+}).catch(err => {
+  console.log(err)
+})

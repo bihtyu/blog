@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+  <style>
+    .traffic {
+      display: flex;
+      height: 50vh;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #light {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+    }
+
+    #light.green {
+      background: green;
+    }
+
+    #light.yellow {
+      background: yellow;
+    }
+
+    #light.red {
+      background: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="traffic">
+    <div id="light"></div>
+  </div>
+
+  <script type="text/javascript">
+    const TRAFFIC_CONFIG = {
+      'green': 3000,
+      'yellow': 1000,
+      'red': 2000
+    }
+
+    const light = document.getElementById('light')
+
+    const changeToColor = function (toColor) {
+      return new Promise((resolve) => {
+        light.className = toColor
+        setTimeout(() => {
+          resolve()
+        }, TRAFFIC_CONFIG[toColor])
+      })
+    }
+
+    async function loop() {
+      for (let color in TRAFFIC_CONFIG) {
+        await changeToColor(color)
+      }
+      loop()
+    }
+
+    loop()
+  </script>
+</body>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="IE=edge, chrome=1">
+  <style>
+    #container {
+      width: 100%;
+      height: 200px;
+      line-height: 200px;
+      text-align: center;
+      color: #fff;
+      background-color: #444;
+      font-size: 30px;
+    }
+    
+    input {
+      margin-top: 100px;
+      width: 500px;
+      height: 50px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container"></div>
+  <input type="text" oninput="throttleInput(event)" />
+</body>
+
+<script type="text/javascript">
+function throttle1(fn, delay) {
+  let last = Date.now()
+  return function() {
+    const now = Date.now()
+    console.log(now - last)
+    if (now - last > delay) {
+      last = now
+      fn.apply(this, arguments)
+    }
+  }
+}
+
+function throttle2(fn, delay) {
+  let timer = null
+  return function() {
+    if (!timer) {
+      timer = setTimeout(() => {
+        fn.apply(this, arguments)
+        timer = null
+      }, delay)
+    }
+  }
+}
+
+function throttle3(fn, delay) {
+  let last = Date.now()
+  let timer = null
+  return function() {
+    let now = Date.now()
+    let remain = delay - (now - last)
+
+    clearTimeout(timer)
+    
+    if (remain < 0) {
+      fn.apply(this, arguments)
+      last = Date.now()
+    } else {
+      timer = setTimeout(() => {
+        fn.apply(this, arguments)
+        last = Date.now()
+      }, remain)
+    }
+  }
+}
+
+function handleInput(event) {
+  console.log('input value: ' + event.target.value)
+}
+
+const throttleInput = throttle3(handleInput, 1000)
+
+</script>
+
+<script>
+  var count = 1;
+  var container = document.getElementById('container');
+  function getUserAction() {
+    container.innerHTML = count++;
+  };
+  var debounceGetUserAction = debounce(getUserAction, 1000)
+  container.onmousemove = debounceGetUserAction;
+
+  function debounce(fn, delay) {
+    let timer = null
+    return function () {
+      let context = this
+      let args = arguments
+      clearTimeout(timer)
+      timer = setTimeout(function () {
+        fn.apply(context, args)
+      }, delay)
+    }
+  }
+
+</script>
+
+</html>

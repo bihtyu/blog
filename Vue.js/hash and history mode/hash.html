@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><title>hash</title></head>
+  <body>
+    <a href="#/">home</a>
+    <a href="#/about">about</a>
+    <a href="#/404">404</a>
+
+    <div id="routerView"></div>
+    
+    <script>
+      let routerView = document.querySelector('#routerView')
+      let router = {
+        '#/': 'home',
+        '#/about': 'about',
+        '#/404': '404'
+      }
+
+      function render() {
+        let hash = location.hash
+        routerView.innerHTML = router[hash]
+      }
+
+      window.addEventListener('hashchange', render)
+
+      window.addEventListener('DOMContentLoaded', () => {
+        location.hash || (location.hash = '/')
+        render()
+      })
+    </script>
+  </body>
+</html>

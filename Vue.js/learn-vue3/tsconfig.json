@@ -1,0 +1,37 @@
+// {
+//   "compilerOptions": {
+//     "target": "esnext",
+//     "useDefineForClassFields": true,
+//     "module": "esnext",
+//     "moduleResolution": "node",
+//     "strict": true,
+//     "jsx": "preserve",
+//     "sourceMap": true,
+//     "resolveJsonModule": true,
+//     "esModuleInterop": true,
+//     "lib": ["esnext", "dom"]
+//   },
+//   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+// }
+
+{
+  "compilerOptions": {
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/types/images.d.ts",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

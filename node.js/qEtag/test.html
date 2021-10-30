@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <script src="./sha1.js"></script> 
+    <script src="./qetag.js"></script>
+    <script>
+        function fload(input) {
+            var fs = input.files;
+            if (fs.length) {
+                var f = fs[0];
+                var reader = new FileReader(); 
+                reader.onload = function () { 
+                    document.getElementById("etagDemo").innerHTML = getEtag(this.result);
+                }
+                reader.readAsArrayBuffer(f);
+            }
+        }
+    </script>
+    <input id="f" type="file" onchange="fload(this)" /> 
+    <div id="etagDemo"></div>
+  </body>
+</html>
