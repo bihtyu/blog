@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+  <div id="app"></div>
+  <script src="../assets/vue/vue.js"></script>
+  <script>
+    Vue.component('test', {
+      template: '<div v-bind="$attrs" v-on="$listeners"></div>',
+      updated() {
+        console.log(this.$attrs)
+        console.log('update in test component')
+      }
+    })
+
+    new Vue({
+      el: '#app',
+      template: `
+        <div>
+          <input
+            type="text"
+            v-model="input"
+          />
+          <test :test="test" />
+        </div>
+      `,
+      data() {
+        return {
+          input: '',
+          test: ''
+        }
+      }
+    })
+
+    // reason:
+    // 子组件有 $attrs 时，会收集父组件的 data.attrs，进行依赖收集，
+    // 当父组件 data 触发 set 时，就会连带触发子组件中收集的依赖的 notify()
+
+    // path: vue/src/core/instance/render.js - initRender()
+    // $attrs & $listeners are exposed for easier HOC creation.
+    // they need to be reactive so that HOCs using them are always updated
+
+    // vm.$attrs = parentVnode.data.attrs || emptyObject;
+    // vm.$listeners = listeners || emptyObject;
+  </script>
+</body>
+</html>
