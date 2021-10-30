@@ -3,7 +3,7 @@
 // const app = http.createServer()
 
 // const proxyConf = {
-//   hostname: 'https://gx.creditft.net.cn/gxfin/gateway/',
+//   hostname: 'xxx.com',
 //   port: 80,
 // }
 

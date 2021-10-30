@@ -20,7 +20,7 @@ const getJSON = function(url) {
   return promise
 }
 
-getJSON('https://gx.creditft.net.cn/gxfin/gateway/finance-pay/webPay/imageCode').then(res => {
+getJSON('xx.com/...').then(res => {
   console.log(res)
 }).catch(err => {
   console.log(err)
