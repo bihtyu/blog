@@ -35,25 +35,25 @@
 
   <script type="text/javascript">
     const TRAFFIC_CONFIG = {
-      'green': 3000,
-      'yellow': 1000,
-      'red': 2000
+      green: 3,
+      yellow: 1,
+      red: 2
     }
 
     const light = document.getElementById('light')
 
-    const changeToColor = function (toColor) {
-      return new Promise((resolve) => {
-        light.className = toColor
+    const changeColor = function(color) {
+      return new Promise(resolve => {
+        light.setAttribute('class', color)
         setTimeout(() => {
           resolve()
-        }, TRAFFIC_CONFIG[toColor])
+        }, TRAFFIC_CONFIG[color] * 1000)
       })
     }
 
     async function loop() {
-      for (let color in TRAFFIC_CONFIG) {
-        await changeToColor(color)
+      for (const color in TRAFFIC_CONFIG) {
+        await changeColor(color)
       }
       loop()
     }

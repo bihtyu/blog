@@ -1,13 +1,11 @@
 const getJSON = function(url) {
-  const promise = new Promise((resolved, reject) => {
+  return new Promise((resolved, reject) => {
     const handler = function() {
-      if (this.readyState !== 4) {
-        return
-      }
+      if (this.readyState !== 4) return
       if (this.status === 200) {
         resolved(this.response)
       } else {
-        reject(new Error(this.statusText))
+        reject(this.statusText)
       }
     }
     const client = new XMLHttpRequest()
@@ -17,7 +15,6 @@ const getJSON = function(url) {
     client.setRequestHeader('Accept', 'application/json')
     client.send()
   })
-  return promise
 }
 
 getJSON('xx.com/...').then(res => {

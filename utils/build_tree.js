@@ -133,4 +133,27 @@ function toTree2(data) {
   return result
 }
 
-console.log(JSON.stringify(toTree3('123123123')))
+function toTree3(list) {
+  if (!Array.isArray(list)) throw new Error('参数异常')
+
+  const res = []
+  const map = {}
+
+  list.forEach(node => {
+    map[node.id] = node
+  })
+
+  list.forEach(node => {
+    const parent = map[node.parent_id]
+    if (parent) {
+      parent.children = Array.isArray(parent.children) ? [...parent.children, node] : [node]
+    } else {
+      res.push(node)
+    }
+  })
+
+  return res
+}
+
+console.log(toTree3(menu_list))
+console.log(JSON.stringify(toTree3(menu_list)))
