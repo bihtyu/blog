@@ -67,7 +67,7 @@
     this.color = ['red', 'blue']
   }
 
-  Super.prototype.sayName = function() {
+  SuperType.prototype.sayName = function() {
     console.log(this.name)
   }
 
@@ -97,7 +97,7 @@
   // 第二次：p1 = new SubType('yzh', 28)
 
   // 2.实例和原型上存在两份相同的属性（name 和 color），
-  //  一组在实例上，另一组在 SubType 的原型（SubType.prototype）上，这是两次条用 SuperType 构造函数的结果
+  //  一组在实例上，另一组在 SubType 的原型（SubType.prototype）上，这是两次调用 SuperType 构造函数的结果
 })();
 
 (function() {
@@ -142,20 +142,22 @@
     }
     return clone
   }
-  // 缺点：跟接用构造函数模式一样，每次创建对象都会创建一遍方法
+  // 缺点：跟借用构造函数模式一样，每次创建对象都会创建一遍方法
 })();
 
 (function() {
-  console.log('6.寄生组合式继承（最理想的继承方式）-----------------------------')
+  console.log('6.寄生式组合继承（最理想的继承方式）-----------------------------')
 
   function object(o) {
     function F() {}
     F.prototype = o
     return new F()
   }
+  
   // 寄生式组合继承的核心逻辑
   function inheritPrototype(subType, superType) {
-    let prototype = object(superType.prototype) // 创建父类原型副本
+    // const prototype = object(superType.prototype) // 创建父类原型副本
+    const prototype = Object.create(superType.prototype) // 创建父类原型副本
     prototype.constructor = subType // 解决由于重写导致默认 constructor 丢失的问题
     subType.prototype = prototype // 新创建的对象赋值给子类型的原型
   }
@@ -173,6 +175,7 @@
     this.age = age
   }
 
+  // 核心：因为是对父类原型的复制，所以不包含父类的构造函数，也就不会调用两次父类的构造函数造成浪费
   inheritPrototype(SubType, SuperType)
 
   SubType.prototype.sayAge = function() {
