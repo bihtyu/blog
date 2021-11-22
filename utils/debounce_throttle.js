@@ -41,23 +41,27 @@ const throttleHandle2 = throttle_timer(handle, 1000)
 
 function throttle_better(fn, delay) {
   let timer = null
-  let startTime = Date.now()
-  return function () {
-    let currentTime = Date.now()
-    let remain = delay - (currentTime - startTime)
-    let context = this
-    let args = arguments
-    clearTimeout(timer)
+  let start = Date.now()
+  return function() {
+    const context = this
+    const args = arguments
+
+    let end = Date.now()
+    let remain = delay - (end - start)
+    
     if (remain <= 0) {
-      console.log('up')
+      if (timer) {
+        clearTimeout(timer)
+        timer = null
+      }
       fn.apply(context, args)
-      startTime = Date.now()
+      start = Date.now()
     } else {
-      console.log('down')
-      // timer = setTimeout(fn, remain)
-      timer = setTimeout(function () {
+      timer = setTimeout(function() {
         fn.apply(context, args)
-      }, remain)
+        timer = null
+        start = Date.now()
+      }, delay)
     }
   }
 }
