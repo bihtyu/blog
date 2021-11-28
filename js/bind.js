@@ -4,19 +4,6 @@
  * 1. 返回一个新函数
  * 2. 可以传入参数
  */
-
-var foo = {
-  value: 1
-}
-
-function bar() {
-  console.log(this.value)
-}
-
-var bindFoo = bar.bind(foo)
-
-bindFoo()
-
 // v1
 Function.prototype.bind1 = function(context) {
   var self = this
@@ -53,3 +40,17 @@ Function.prototype.bind3 = function(context) {
   fBound.prototype = new fNOP()
   return fBound
 }
+
+
+// test
+var foo = {
+  value: 3
+}
+
+function bar() {
+  console.log(this.value)
+}
+
+var bindFoo = bar.bind3(foo)
+
+bindFoo()

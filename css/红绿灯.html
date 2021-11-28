@@ -1,63 +1,65 @@
 <!DOCTYPE html>
-<head>
-  <style>
-    .traffic {
-      display: flex;
-      height: 50vh;
-      justify-content: center;
-      align-items: center;
-    }
-
-    #light {
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-    }
-
-    #light.green {
-      background: green;
-    }
-
-    #light.yellow {
-      background: yellow;
-    }
-
-    #light.red {
-      background: red;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="traffic">
-    <div id="light"></div>
-  </div>
-
-  <script type="text/javascript">
-    const TRAFFIC_CONFIG = {
-      green: 3,
-      yellow: 1,
-      red: 2
-    }
-
-    const light = document.getElementById('light')
-
-    const changeColor = function(color) {
-      return new Promise(resolve => {
-        light.setAttribute('class', color)
-        setTimeout(() => {
-          resolve()
-        }, TRAFFIC_CONFIG[color] * 1000)
-      })
-    }
-
-    async function loop() {
-      for (const color in TRAFFIC_CONFIG) {
-        await changeColor(color)
+<html>
+  <head>
+    <style>
+      .traffic {
+        display: flex;
+        height: 50vh;
+        justify-content: center;
+        align-items: center;
       }
+  
+      #light {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+      }
+  
+      #light.green {
+        background: green;
+      }
+  
+      #light.yellow {
+        background: yellow;
+      }
+  
+      #light.red {
+        background: red;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="traffic">
+      <div id="light"></div>
+    </div>
+  
+    <script type="text/javascript">
+      const TRAFFIC_CONFIG = {
+        green: 3,
+        yellow: 1,
+        red: 2
+      }
+  
+      const light = document.getElementById('light')
+  
+      const changeColor = function(color) {
+        return new Promise(resolve => {
+          light.setAttribute('class', color)
+          setTimeout(() => {
+            resolve()
+          }, TRAFFIC_CONFIG[color] * 1000)
+        })
+      }
+  
+      async function loop() {
+        for (const color in TRAFFIC_CONFIG) {
+          await changeColor(color)
+        }
+        loop()
+      }
+  
       loop()
-    }
-
-    loop()
-  </script>
-</body>
+    </script>
+  </body>
+</html>

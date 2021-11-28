@@ -2,12 +2,12 @@
  * @param {number} num
  * @return {string}
  */
-// function addComma(num) {
-//   // your code here
-//   return num.toLocaleString('zh-CN', { maximumFractionDigits: 20 })
-// }
+function addComma1(num) {
+  // your code here
+  return num.toLocaleString('zh-CN', { maximumFractionDigits: 2 })
+}
 
-function addComma(num) {
+function addComma2(num) {
   const isNegative = num < 0
   const arr = (num + '').split('.')
   const front = arr[0].split('').reverse()
@@ -27,6 +27,4 @@ function addComma(num) {
 
   return isNegative ? `-${str}` : str
 }
-
-
 // https://bigfrontend.dev/problem/add-comma-to-number
