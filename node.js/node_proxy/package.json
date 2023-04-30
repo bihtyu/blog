@@ -13,7 +13,7 @@
     "http-proxy": "^1.18.1"
   },
   "devDependencies": {
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "http-proxy-middleware": "^2.0.1"
   }
 }
